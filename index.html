@@ -2293,6 +2293,9 @@ function displaySheetContent(sheetName) {
     jsonData[0].forEach(header => {
         const th = document.createElement("th");
         th.innerText = header;
+        th.style.padding = "5px"; // تقليل الحشوة (padding) في رؤوس الأعمدة
+        th.style.height = "30px"; // تقليل الارتفاع لرؤوس الأعمدة
+        th.style.fontWeight = "bold"; // جعل الخط سميكًا
         headerRow.appendChild(th);
     });
     table.appendChild(headerRow);
@@ -2306,6 +2309,9 @@ function displaySheetContent(sheetName) {
         row.forEach(cell => {
             const td = document.createElement("td");
             td.innerText = cell;
+            td.style.padding = "5px"; // تقليل الحشوة (padding) داخل الخلايا
+            td.style.height = "30px"; // تقليل الارتفاع للخلايا
+            td.style.fontWeight = "bold"; // جعل الخط سميكًا
 
             // 🟢 نسخ عند الدبل كليك
             td.ondblclick = function() {
@@ -2338,6 +2344,7 @@ function displaySheetContent(sheetName) {
 document.getElementById("searchInput").addEventListener("input", function() {
     displaySheetContent(currentSheetName); 
 });
+
 
 //////////////////99
 

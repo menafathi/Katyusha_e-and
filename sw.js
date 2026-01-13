@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v13'; // غير الرقم كل ما تعدل حاجة
+const CACHE_NAME = 'v22'; // غير الرقم كل ما تعدل حاجة
 const urlsToCache = [
   './',
   './index.html'
@@ -55,3 +55,4 @@ self.addEventListener('fetch', e => {
     })
   );
 });
+

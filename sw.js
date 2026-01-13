@@ -23,7 +23,7 @@ self.addEventListener('activate', e => {
         keys.map(key => {
           if (key !== CACHE_NAME) {
             console.log('Removing old cache:', key);
-            return caches.delete(key);
+            return caches.delete(key); // حذف الكاش القديم
           }
         })
       );
@@ -37,21 +37,29 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(res => {
       if (res) {
-        // نرجع النسخة من الكاش لكن نحاول تحديث الكاش بالخلفية
+        // إذا وجدنا نسخة في الكاش، نرجعها ولكن نحاول تحديث الكاش بالخلفية
         fetch(e.request).then(fetchRes => {
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(e.request, fetchRes.clone());
+            cache.put(e.request, fetchRes.clone()); // تحديث الكاش
           });
         });
-        return res;
+        return res; // إرجاع النسخة من الكاش
       } else {
+        // إذا لم نجد الكاش، نطلبها من الشبكة
         return fetch(e.request).then(fetchRes => {
           return caches.open(CACHE_NAME).then(cache => {
-            cache.put(e.request, fetchRes.clone());
+            cache.put(e.request, fetchRes.clone()); // إضافة النسخة الجديدة إلى الكاش
             return fetchRes;
           });
         });
       }
     })
   );
+});
+
+// لحظة إضافة التحديث التلقائي للنسخة الجديدة (خاص بجعل SW يعمل تلقائيًا)
+self.addEventListener('message', e => {
+  if (e.data === 'skipWaiting') {
+    self.skipWaiting(); // تخطي الانتظار للنسخة الجديدة
+  }
 });

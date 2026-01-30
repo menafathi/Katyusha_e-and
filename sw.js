@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v31'; // غير الرقم كل ما تعدل حاجة
+const CACHE_NAME = 'v32'; // غير الرقم كل ما تعدل حاجة
 const urlsToCache = [
   './',
   './index.html'
@@ -63,3 +63,4 @@ self.addEventListener('message', e => {
     self.skipWaiting(); // تخطي الانتظار للنسخة الجديدة
   }
 });
+
